@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { ListItems } from "./components/ListItems";
+import { TodoItem } from "./components/TodoItem";
+import { UserItem } from "./components/UserItem";
 
 interface Post {
   id: number;
@@ -13,7 +15,7 @@ export interface Todo {
   completed: boolean;
 }
 
-interface User {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -61,26 +63,13 @@ function App() {
         <ListItems
           title="Список Todo"
           items={todos}
-          renderItem={(item) => (
-            <div
-              className="p-3 bg-blue-300 border-2 flex gap-3 items-center"
-              key={item.id}
-            >
-              <p className="text-2xl text-red-700">{item.id}</p>
-              <p>{item.title}</p>
-            </div>
-          )}
+          renderItem={(item) => <TodoItem item={item} />}
         />
 
         <ListItems
           title="Список Users"
           items={users}
-          renderItem={(item) => (
-            <div className="p-3 bg-green-300 border-2" key={item.id}>
-              <p>{item.name}</p>
-              <p>{item.email}</p>
-            </div>
-          )}
+          renderItem={(item) => <UserItem item={item} />}
         />
       </div>
     </div>

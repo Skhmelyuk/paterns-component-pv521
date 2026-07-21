@@ -1,5 +1,3 @@
-import type { Todo } from "../App";
-
 interface ListItemsProps<T> {
   items: T[];
   title: string;
