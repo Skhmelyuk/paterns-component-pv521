@@ -1,13 +1,18 @@
 import type { Todo } from "../App";
 
-export const TodoItem = ({ item }: { item: Todo }) => {
+interface TodoItemProps {
+  header?: React.ReactNode;
+  main: React.ReactNode;
+  footer?: React.ReactNode;
+}
+
+export const TodoItem = ({ header, main, footer }: TodoItemProps) => {
   return (
-    <div
-      className="p-3 bg-blue-300 border-2 flex gap-3 items-center"
-      key={item.id}
-    >
-      <p className="text-2xl text-red-700">{item.id}</p>
-      <p>{item.title}</p>
+    <div className="p-3 bg-blue-300 border-2 grid gap-3 items-center">
+      {header && <div>header</div>}
+      <div>{main}</div>
+
+      {footer && <div>footer</div>}
     </div>
   );
 };
