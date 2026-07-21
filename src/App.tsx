@@ -3,6 +3,7 @@ import { ListItems } from "./components/ListItems";
 import { TodoItem } from "./components/TodoItem";
 import { UserItem } from "./components/UserItem";
 import { PostItem } from "./components/PostItem";
+import { Header } from "./components/Header";
 
 export interface Post {
   id: number;
@@ -55,29 +56,43 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-        <header className="mb-10 text-center">
+        <Header text={<p>Same information....</p>}>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Data Dashboard
           </h1>
-        </header>
+        </Header>
 
-        <ListItems
-          title="Список Todo"
-          items={todos}
-          renderItem={(item) => <TodoItem item={item} />}
-        />
+        {todos && (
+          <ListItems
+            renderTitle={() => (
+              <h2 className="text-green-600 text-center mb-4 text-5xl">
+                Список Todos
+              </h2>
+            )}
+            items={todos}
+            renderItem={(item) => (
+              <TodoItem
+                main={
+                  <div className="text-2xl text-green-700">
+                    {item.title} - {item.id}
+                  </div>
+                }
+              />
+            )}
+          />
+        )}
 
-        <ListItems
-          title="Список Users"
-          items={users}
-          renderItem={(item) => <UserItem item={item} />}
-        />
-
-        <ListItems
-          title="Список Posts"
-          items={posts}
-          renderItem={(item) => <PostItem item={item} />}
-        />
+        {users && (
+          <ListItems
+            renderTitle={() => (
+              <h2 className="text-blue-600 text-center mb-4 text-4xl">
+                Список Users
+              </h2>
+            )}
+            items={users}
+            renderItem={(item) => <UserItem item={item} />}
+          />
+        )}
       </div>
     </div>
   );
