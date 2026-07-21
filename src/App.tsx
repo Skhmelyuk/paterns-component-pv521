@@ -5,6 +5,7 @@ import { UserItem } from "./components/UserItem";
 import { PostItem } from "./components/PostItem";
 import { Header } from "./components/Header";
 import { TodoFilter } from "./components/TodoFilter";
+import { PostFilter } from "./components/PostFilter";
 
 export interface Post {
   id: number;
@@ -88,26 +89,28 @@ function App() {
         )}
 
         {posts && (
-          <ListItems
-            renderTitle={() => (
-              <h2 className="text-amber-600 text-center mb-4 text-4xl">
-                Список Posts
-              </h2>
-            )}
-            items={posts}
-            renderItem={(item) => (
-              <PostItem
-                header={
-                  <h3 className="font-bold text-lg text-amber-900">
-                    #{item.id} {item.title}
-                  </h3>
-                }
-                main={
-                  <p className="text-slate-700">{item.body}</p>
-                }
+          <PostFilter posts={posts}>
+            {(filteredPosts) => (
+              <ListItems
+                renderTitle={() => (
+                  <h2 className="text-amber-600 text-center mb-4 text-4xl">
+                    Список Posts
+                  </h2>
+                )}
+                items={filteredPosts}
+                renderItem={(item) => (
+                  <PostItem
+                    header={
+                      <h3 className="font-bold text-lg text-amber-900">
+                        #{item.id} {item.title}
+                      </h3>
+                    }
+                    main={<p className="text-slate-700">{item.body}</p>}
+                  />
+                )}
               />
             )}
-          />
+          </PostFilter>
         )}
 
         {users && (
