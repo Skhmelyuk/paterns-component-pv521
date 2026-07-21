@@ -3,6 +3,7 @@ import { ListItems } from "./components/ListItems";
 import { TodoItem } from "./components/TodoItem";
 import { UserItem } from "./components/UserItem";
 import { Header } from "./components/Header";
+import { TodoFilter } from "./components/TodoFilter";
 
 interface Post {
   id: number;
@@ -62,23 +63,27 @@ function App() {
         </Header>
 
         {todos && (
-          <ListItems
-            renderTitle={() => (
-              <h2 className="text-green-600 text-center mb-4 text-5xl">
-                Список Todos
-              </h2>
-            )}
-            items={todos}
-            renderItem={(item) => (
-              <TodoItem
-                main={
-                  <div className="text-2xl text-green-700">
-                    {item.title} - {item.id}
-                  </div>
-                }
+          <TodoFilter todos={todos}>
+            {(filteredTodos) => (
+              <ListItems
+                renderTitle={() => (
+                  <h2 className="text-green-600 text-center mb-4 text-5xl">
+                    Список Todos
+                  </h2>
+                )}
+                items={filteredTodos}
+                renderItem={(item) => (
+                  <TodoItem
+                    main={
+                      <div className="text-2xl text-green-700">
+                        {item.title} - {item.id}
+                      </div>
+                    }
+                  />
+                )}
               />
             )}
-          />
+          </TodoFilter>
         )}
 
         {users && (
