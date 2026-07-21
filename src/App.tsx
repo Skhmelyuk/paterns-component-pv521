@@ -55,7 +55,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-8">
         <Header text={<p>Same information....</p>}>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Data Dashboard
@@ -76,6 +76,29 @@ function App() {
                   <div className="text-2xl text-green-700">
                     {item.title} - {item.id}
                   </div>
+                }
+              />
+            )}
+          />
+        )}
+
+        {posts && (
+          <ListItems
+            renderTitle={() => (
+              <h2 className="text-amber-600 text-center mb-4 text-4xl">
+                Список Posts
+              </h2>
+            )}
+            items={posts}
+            renderItem={(item) => (
+              <PostItem
+                header={
+                  <h3 className="font-bold text-lg text-amber-900">
+                    #{item.id} {item.title}
+                  </h3>
+                }
+                main={
+                  <p className="text-slate-700">{item.body}</p>
                 }
               />
             )}
