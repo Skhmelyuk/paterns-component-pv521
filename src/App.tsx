@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { ListItems } from "./components/ListItems";
 import { TodoItem } from "./components/TodoItem";
 import { UserItem } from "./components/UserItem";
+import { PostItem } from "./components/PostItem";
 
-interface Post {
+export interface Post {
   id: number;
   title: string;
   body: string;
@@ -29,9 +30,9 @@ export interface User {
 }
 
 function App() {
-  const [todos, setTodos] = useState<Todo[] | null>(null);
-  const [posts, setPosts] = useState<Post[] | null>(null);
-  const [users, setUsers] = useState<User[] | null>(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/todos")
@@ -70,6 +71,12 @@ function App() {
           title="Список Users"
           items={users}
           renderItem={(item) => <UserItem item={item} />}
+        />
+
+        <ListItems
+          title="Список Posts"
+          items={posts}
+          renderItem={(item) => <PostItem item={item} />}
         />
       </div>
     </div>
