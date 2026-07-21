@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { ListItems } from "./components/ListItems";
 import { TodoItem } from "./components/TodoItem";
 import { UserItem } from "./components/UserItem";
+import { PostItem } from "./components/PostItem";
 import { Header } from "./components/Header";
 import { TodoFilter } from "./components/TodoFilter";
+import { PostFilter } from "./components/PostFilter";
 
-interface Post {
+export interface Post {
   id: number;
   title: string;
   body: string;
@@ -31,9 +33,9 @@ export interface User {
 }
 
 function App() {
-  const [todos, setTodos] = useState<Todo[] | null>(null);
-  const [posts, setPosts] = useState<Post[] | null>(null);
-  const [users, setUsers] = useState<User[] | null>(null);
+  const [todos, setTodos] = useState<Todo[]>([]);
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/todos")
@@ -55,7 +57,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto space-y-8">
         <Header text={<p>Same information....</p>}>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">
             Data Dashboard
@@ -84,6 +86,31 @@ function App() {
               />
             )}
           </TodoFilter>
+        )}
+
+        {posts && (
+          <PostFilter posts={posts}>
+            {(filteredPosts) => (
+              <ListItems
+                renderTitle={() => (
+                  <h2 className="text-amber-600 text-center mb-4 text-4xl">
+                    Список Posts
+                  </h2>
+                )}
+                items={filteredPosts}
+                renderItem={(item) => (
+                  <PostItem
+                    header={
+                      <h3 className="font-bold text-lg text-amber-900">
+                        #{item.id} {item.title}
+                      </h3>
+                    }
+                    main={<p className="text-slate-700">{item.body}</p>}
+                  />
+                )}
+              />
+            )}
+          </PostFilter>
         )}
 
         {users && (
